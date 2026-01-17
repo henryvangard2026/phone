@@ -4,6 +4,11 @@
 # NEXT:  1/3/26 valid that if it is an Android, it won't pick iOS and vice versa.
 #
 
+#
+# STATUS:  Completed!  1/17/26
+#
+
+
 import os, time, sys
 
 from sqlalchemy import create_engine, Column, Integer, String, Enum, text

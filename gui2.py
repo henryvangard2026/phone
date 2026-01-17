@@ -2,6 +2,9 @@
 # PyQt6 GUI 
 #
 
+#
+# STATUS:  Completed!  1/17/26
+#
 
 # imports for main GUI
 from PyQt6.QtWidgets import (
