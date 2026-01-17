@@ -8,7 +8,7 @@ howtorun = '''
 #
 # HOWTO:
 # 
-# C:\Users\Henry\OneDrive\Desktop\Python\Phone>uvicorn fastapiphone:app --reload
+# uvicorn fastapiphone:app --reload
 #
 # INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 #

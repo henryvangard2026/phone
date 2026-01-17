@@ -11,6 +11,14 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 
 from sqlalchemy.inspection import inspect
 
+
+# GLOBAL Variables:
+
+
+# by default, this is True for CLI but from PyQT6 GUI, it MUST be set to False before calling any CLI functions
+CLI = True  
+
+
 # Setup
 
 engine = create_engine('sqlite:///phones.db')  # "phones" is the database name
@@ -400,37 +408,70 @@ def addPhone(phone=None):
 
 # delete a phone by its ID  
 def deletePhone(phoneID=None):
-    clearScreen()
+    """
+    Delete a phone by ID, providedor prompted for.
+    Return:  True for successful deletion, False otherwise
+    """
     
-    #if not phoneID:
-        #print("ERROR:  A phone ID was required.")
-        #time.sleep(2)
-        #return
-
-    phoneID = input("Enter ID: ").strip()
-
-    if not int(phoneID):
-        print("ERROR:  Enter a numeric ID!")
-        return
-
-    phone = session.query(Phone).filter_by(id=phoneID).first()
-    if phone:
-        session.delete(phone)
-        session.commit()
-        print(f"INFO: Phone with ID {phoneID} deleted successfully!")      
-        input("Press Enter to continue ...")
+    if CLI:
+        clearScreen()
+    
+        phoneID = input("Enter ID: ").strip()
+    
+        if not phoneID.isdigit():
+            print("ERROR:  Enter a numeric ID!")
+            return False
+    
+        # phoneID is an int
+        phoneID = int(phoneID)
+        phone = session.query(Phone).filter_by(id=phoneID).first()
+        if phone:
+            session.delete(phone)
+            session.commit()
+            print(f"INFO: Phone with ID {phoneID} deleted successfully!")      
+            input("Press Enter to continue ...")
+            return True
+        else:
+            print(f"ERROR: Phone with ID {phoneID} not found.")
+            input("Press Enter to continue ...")
+            return False
+        
+    # not called from CLI mode but GUI mode        
     else:
-        print(f"ERROR: Phone with ID {phoneID} not found.")
-        input("Press Enter to continue ...")
+        from PyQt6.QtWidgets import QMessageBox
+        
+        if not phoneID.isdigit():
+            QMessageBox.warning(None, "Error", "Enter a numeric ID!")
+            return False
+    
+        # phoneID is an int
+        phoneID = int(phoneID)        
+        phone = session.query(Phone).filter_by(id=phoneID).first()      
+        if phone:
+            session.delete(phone)
+            session.commit()     
+            return True
+        
+        return False
 
 
 # empty the "phone" database but keep the seeding
 def deleteAllPhones():
+    """
+    Delete all phones.
+    Return:  Not Applicable
+    """
+    
     session.query(Phone).delete() 
     session.commit()
 
 # update a phone
 def updatePhone(phoneID=None):
+    """
+    Update a phone.
+    Return:  Not Applicable
+    """
+    
     clearScreen()
 
     #if not phoneID:
@@ -754,18 +795,23 @@ def viewPhone(phoneID=None, imei=None, serialNumber=None, workstation=None):
 
 # View all phones in the database
 def viewPhones():
-    clearScreen()
-
     phones = session.query(Phone).all()
-    print(f"Phones in the database \"{Phone.__tablename__}\":")
-    print("-------------------------------")
-    for phone in phones:
-        status_str = "Active" if phone.status else "Inactive"
-        print(f"Phone ID: {phone.id}, Brand: {phone.brand}, Model: {phone.model}, OS: {phone.os} {phone.os_version}, "
-              f"Serial Number: {phone.serial_number}, IMEI: {phone.imei}, Status: {status_str}, "
-              f"Workstation: {phone.workstation}\n")
+    
+    # terminal mode by default
+    if CLI:
+        clearScreen()
+    
+        print(f"Phones in the database \"{Phone.__tablename__}\":")
+        print("-------------------------------")
+        for phone in phones:
+            status_str = "Active" if phone.status else "Inactive"
+            print(f"Phone ID: {phone.id}, Brand: {phone.brand}, Model: {phone.model}, OS: {phone.os} {phone.os_version}, "
+                  f"Serial Number: {phone.serial_number}, IMEI: {phone.imei}, Status: {status_str}, "
+                  f"Workstation: {phone.workstation}\n")
         
-    input("Press Enter to continue ...")
+        input("Press Enter to continue ...")
+    else:
+        return phones  # return phones to PyQT6 GUI's show_view_all_phones
 
 
 # exit menu
