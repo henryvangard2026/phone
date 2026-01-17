@@ -33,6 +33,9 @@ curl http://127.0.0.1:8000/phones/serial_number/AA556677BB-1022
 # get phone by workstation, "workstation":"WS1023"
 curl http://127.0.0.1:8000/phones/workstation/WS1023
 
+# OR
+#
+# you could go to:  http://127.0.0.1:8000/docs
 
 '''
 
