@@ -34,3 +34,6 @@ desktop.ini
 
 # Environment variables
 .env
+
+# old folder is not included (ignored)
+old/

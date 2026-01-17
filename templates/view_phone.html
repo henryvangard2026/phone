@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>Phone {{ phone.id }}</title></head>
+<body>
+
+<h1>Phone {{ phone.id }}</h1>
+
+<ul>
+    <li>Brand: {{ phone.brand }}</li>
+    <li>Model: {{ phone.model }}</li>
+    <li>OS: {{ phone.os }} {{ phone.os_version }}</li>
+    <li>Serial: {{ phone.serial_number }}</li>
+    <li>IMEI: {{ phone.imei }}</li>
+    <li>Status: {{ phone.status }}</li>
+    <li>Workstation: {{ phone.workstation }}</li>
+</ul>
+
+<a href="{{ url_for('update_phone', phone_id=phone.id) }}">Edit</a>
+<br><br>
+<a href="{{ url_for('index') }}">Back</a>
+
+</body>
+</html>

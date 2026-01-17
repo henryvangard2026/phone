@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head><title>All Phones</title></head>
+<body>
+<h1>All Phones</h1>
+
+<a href="{{ url_for('add_phone') }}">Add Phone</a>
+<br><br>
+
+<table border="1" cellpadding="6">
+<tr>
+  <th>ID</th><th>Brand</th><th>Model</th><th>OS</th><th>Status</th><th>Actions</th>
+</tr>
+
+{% for p in phones %}
+<tr>
+  <td>{{ p.id }}</td>
+  <td>{{ p.brand }}</td>
+  <td>{{ p.model }}</td>
+  <td>{{ p.os }} {{ p.os_version }}</td>
+  <td>{{ p.status }}</td>
+  <td>
+    <a href="{{ url_for('view_phone', phone_id=p.id) }}">View</a> |
+    <a href="{{ url_for('update_phone', phone_id=p.id) }}">Edit</a> |
+    <form action="{{ url_for('delete_phone', phone_id=p.id) }}" method="POST" style="display:inline;">
+      <button type="submit">Delete</button>
+    </form>
+  </td>
+</tr>
+{% endfor %}
+</table>
+
+</body>
+</html>
