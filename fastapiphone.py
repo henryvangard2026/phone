@@ -2,8 +2,10 @@
 #  FASTAPI:  Workstation Phone Management
 #
 
+# 1/17/26:  added 'r' to howtorun variable
 
-howtorun = '''
+
+howtorun = r'''
 
 #
 # HOWTO:
