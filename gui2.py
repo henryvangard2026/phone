@@ -557,6 +557,18 @@ class MainWindow(QWidget):
 # main
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    
+    
+    app.setStyleSheet("""
+        QWidget {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Segoe UI;
+            font-size: 10pt;
+        }
+    """)
+    
+    
     window = MainWindow()
     window.show()
     sys.exit(app.exec())
