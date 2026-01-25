@@ -5,7 +5,7 @@ from fastapi.security import OAuth2PasswordBearer
 
 import fastapiphone as fapi
 
-SECRET_KEY = "Tv1975$$"
+SECRET_KEY = "TvXXX$$"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 

@@ -3,7 +3,7 @@ import phone as ph
 
 
 #
-#  STATUS:  continuging 1/17/26
+#  STATUS:  continuing 1/25/26
 #
 
 
@@ -12,7 +12,17 @@ howtorun = r'''
 #
 # HOWTO:
 # 
-# go to:  http://127.0.0.1:5000
+# run it then go to:  http://127.0.0.1:5000 or http://localhost:5000
+#
+# ENDPOINTS:
+#
+# 1.  view all phones, home (/):  http://localhost:5000/
+#
+# 2.  view one phone ID:  http://localhost:5000/phone_id
+#
+# 3.  update one phone:  http://localhost:5000/update/phone_id
+#
+# 4.  add a phone:  http://localhost:5000/add
 #
 
 '''
@@ -33,7 +43,7 @@ def get_db():
         session.close()
 
 
-# root (home):  view all phones
+# / for home:  view all phones
 # ################################################
 
 @app.route("/")

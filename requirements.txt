@@ -1,0 +1,6 @@
+SQLAlchemy>=2.0
+fastapi
+uvicorn
+python-jose
+python-multipart
+Flask

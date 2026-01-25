@@ -373,11 +373,6 @@ def addPhone(phone=None):
                 elif statusIn in ["UNASSIGNED", "RETIRED"]:
                     workstationIn = "UNASSIGNED"
                     print(f"LOG: Status is {statusIn}, workstation automatically set to UNASSIGNED.")                
-                
-                workstationIn = input("Workstation: ").strip().upper()
-                if not validateWorkstation(workstationIn):
-                    print("LOG:  Please try again.")                   
-                    continue
                     
                 # create the phone: s23 = Phone(....) after all the details have been validated then break
                 phone = Phone(
@@ -735,10 +730,10 @@ def viewPhone(phoneID=None, imei=None, serialNumber=None, workstation=None):
     if phone:
         print(phone)
         input("Press Enter to continue ...")
-        return
+        # let it flow to the CLI menu then can exit from there
     else:
         print("LOG:  Please try again.")                   
-        return
+        # let it flow to the CLI menu then can exit from there
          
     # search by menu
     while True:

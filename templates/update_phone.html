@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Phone</title>
+</head>
+<body>
+    <h1>Update Phone ID {{ phone.id }}</h1>
+
+    <form method="POST">
+
+        <!-- BRAND -->
+        <label>Brand:</label>
+        <select name="brand">
+            <option value="SAMSUNG"   {% if phone.brand == "SAMSUNG" %}selected{% endif %}>Samsung</option>
+            <option value="APPLE"     {% if phone.brand == "APPLE" %}selected{% endif %}>Apple</option>
+            <option value="OTHER"     {% if phone.brand == "OTHER" %}selected{% endif %}>Other</option>
+        </select>
+        <br><br>
+
+        <!-- MODEL (free text) -->
+        <label>Model:</label>
+        <input type="text" name="model" value="{{ phone.model }}">
+        <br><br>
+
+        <!-- OS -->
+        <label>OS:</label>
+        <select name="os">
+            <option value="ANDROID" {% if phone.os == "ANDROID" %}selected{% endif %}>Android</option>
+            <option value="IOS"     {% if phone.os == "IOS" %}selected{% endif %}>iOS</option>
+        </select>
+        <br><br>
+
+        <!-- OS VERSION -->
+        <label>OS Version:</label>
+        <select name="os_version">
+            {% for v in [13,14,15,16,17,18,26] %}
+                <option value="{{ v }}" {% if phone.os_version|string == v|string %}selected{% endif %}>{{ v }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <!-- SERIAL NUMBER -->
+        <label>Serial Number:</label>
+        <input type="text" name="serial_number" value="{{ phone.serial_number }}">
+        <br><br>
+
+        <!-- IMEI -->
+        <label>IMEI:</label>
+        <input type="text" name="imei" value="{{ phone.imei }}">
+        <br><br>
+
+        <!-- STATUS -->
+        <label>Status:</label>
+        <select name="status">
+            <option value="ACTIVE"     {% if phone.status == "ACTIVE" %}selected{% endif %}>Active</option>
+            <option value="UNASSIGNED" {% if phone.status == "UNASSIGNED" %}selected{% endif %}>Unassigned</option>
+            <option value="RETIRED"    {% if phone.status == "RETIRED" %}selected{% endif %}>Retired</option>
+        </select>
+        <br><br>
+
+        <!-- WORKSTATION -->
+        <label>Workstation:</label>
