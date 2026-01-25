@@ -1,5 +1,13 @@
 #
-# user database
+# user database:
+#
+# - adding a database to manager the users
+#
+# DATE:  1/25/26
+#
+# TODO:
+#
+# - brain storming phase, no implementation yet.
 #
 
 
