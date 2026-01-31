@@ -19,6 +19,7 @@
   <td>{{ p.model }}</td>
   <td>{{ p.os }} {{ p.os_version }}</td>
   <td>{{ p.status }}</td>
+  <td>{{ p.workstation }}</td>
   <td>
     <a href="{{ url_for('view_phone', phone_id=p.id) }}">View</a> |
     <a href="{{ url_for('update_phone', phone_id=p.id) }}">Edit</a> |

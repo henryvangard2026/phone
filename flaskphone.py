@@ -3,7 +3,7 @@ import phone as ph
 
 
 #
-#  STATUS:  continuing 1/25/26
+#  STATUS:  completed
 #
 
 
@@ -12,6 +12,8 @@ howtorun = r'''
 #
 # HOWTO:
 # 
+# flask --app flaskphone --debug run
+#
 # run it then go to:  http://127.0.0.1:5000 or http://localhost:5000
 #
 # ENDPOINTS:
@@ -77,7 +79,7 @@ def view_phone(phone_id):
 def add_phone():
     if request.method == "POST":
         session = ph.Session()
-
+        
         try:
             phone = ph.Phone(
                 brand=request.form["brand"].upper(),

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Phone</title>
+</head>
+<body>
+    <h1>Add a New Phone</h1>
+
+    <form method="POST">
+
+        <!-- BRAND -->
+        <label>Brand:</label>
+        <select name="brand">
+            <option value="SAMSUNG">Samsung</option>
+            <option value="APPLE">Apple</option>
+            <option value="OTHER">Other</option>
+        </select>
+        <br><br>
+
+        <!-- MODEL (free text) -->
+        <label>Model:</label>
+        <input type="text" name="model">
+        <br><br>
+
+        <!-- OS -->
+        <label>OS:</label>
+        <select name="os">
+            <option value="ANDROID">Android</option>
+            <option value="IOS">iOS</option>
+        </select>
+        <br><br>
+
+        <!-- OS VERSION -->
+        <label>OS Version:</label>
+        <select name="os_version">
+            {% for v in [13,14,15,16,17,18,26] %}
+                <option value="{{ v }}">{{ v }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <!-- SERIAL NUMBER -->
+        <label>Serial Number:</label>
+        <input type="text" name="serial_number">
+        <br><br>
+
+        <!-- IMEI -->
+        <label>IMEI:</label>
+        <input type="text" name="imei">
+        <br><br>
+
+        <!-- STATUS -->
+        <label>Status:</label>
+        <select name="status">
+            <option value="ACTIVE">Active</option>
+            <option value="UNASSIGNED">Unassigned</option>
+            <option value="RETIRED">Retired</option>
+        </select>
+        <br><br>
+
+        <!-- WORKSTATION -->
+        <label>Workstation:</label>
+        <input type="text" name="workstation">
+        <br><br>
+
+        <button type="submit">Add Phone</button>
+    </form>
+
+    <p><a href="{{ url_for('index') }}">Back to All Phones</a></p>
+
+</body>
+</html>
