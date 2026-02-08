@@ -118,7 +118,7 @@ def CLIMenu():
         print("4/v.   View a Phone")
         print("5/va.  View All Phones")
         print("6/e/x. Exit")
-        print("---------------------")
+        print("----------------------")
 
         choice = input("Enter a choice: ").strip().lower()
         if choice not in actions:
