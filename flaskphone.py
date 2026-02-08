@@ -43,6 +43,37 @@ def get_db():
         yield session
     finally:
         session.close()
+      
+        
+# /login
+# 
+
+import requests
+from flask import session
+
+FASTAPI_LOGIN_URL = "http://127.0.0.1:8000/login"
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+
+        # DEBUGGING:
+        print(f"Username: {username} Password: {password}")
+
+        response = requests.post(FASTAPI_LOGIN_URL, data={"username": username, "password": password})
+
+        if response.status_code == 200:
+            token = response.json()["access_token"]
+            session["token"] = token
+            session["user"] = username
+            return redirect(url_for("index"))
+        else:
+            flash("ERROR:  Invalid username or password.")
+
+    return render_template("login.html")
+
 
 
 # / for home:  view all phones

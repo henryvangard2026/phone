@@ -1,8 +1,7 @@
 #
 # Look for "NEXT:" to continue next time:
 #
-# NEXT:  1/3/26 valid that if it is an Android, it won't pick iOS and vice versa.
-#
+
 
 #
 # STATUS:  Completed!  1/17/26
@@ -45,7 +44,7 @@ statusEnum = Enum("ACTIVE", "UNASSIGNED", "RETIRED", name="statusEnum")
 class Phone(Base):
     # class variable __tablename__ sets the table name in the database:  "phone"
     __tablename__ = "phone"
-    __table_args__ = {"sqlite_autoincrement": True}
+    __table_args__ = {"sqlite_autoincrement": True}  # autoincrementing the id of the phone
     
     id =            Column(Integer, primary_key=True, autoincrement=True)  # auto increment   
     brand =         Column(String, nullable=False)          # "Samsung", "Apple"

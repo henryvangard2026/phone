@@ -36,7 +36,7 @@ def requireToken(token: str = Depends(oauth2_scheme)):
 # login endpoint
 @app.post("/login")
 def login(username: str, password: str):
-    # Replace with real user validation later
+    # replace with real user validation later
     if username != ADMIN or password != PW:
         raise HTTPException(status_code=401, detail="ERROR:  Invalid username or password.")
 

@@ -135,7 +135,7 @@ class PhoneRead(BaseModel):
     workstation: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 # create a session to the DB
@@ -180,17 +180,6 @@ def setupDB():
 # endpoints:
 # ###############################################
 
-"""
-# login endpoint without form 
-@app.post("/login")
-def login(username: str, password: str):
-    # Replace with real user validation later
-    if username != ADMIN or password != PW:
-        raise HTTPException(status_code=401, detail="ERROR:  Invalid username or password.")
-
-    token = create_access_token({"sub": username})
-    return {"access_token": token, "token_type": "bearer"}
-"""
 
 # login with form
 from fastapi import Form
