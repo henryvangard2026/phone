@@ -156,7 +156,7 @@ def validateBrand(brand=None):  # brand should be S, A, O
     return BRANDS[key].upper()  # returns SAMSUNG, APPLE, OTHER
 
 
-# validate the model and return model or the model or None
+# validate the model and return the model or None
 def validateModel(model=None):
     if not model or not model.strip():
         print("ERROR:  Model is required.")
@@ -199,6 +199,50 @@ def validateModel(model=None):
 
     if len(iphoneParts) == 2 and iphoneParts[0] == 'IPHONE' and (iphoneParts[1].isdigit() or iphoneParts[1] == 'SE'):
         return model  # valid iOS model
+
+    print("ERROR:  Model is not valid (neither Android nor iOS).")
+    return None
+
+
+# valid the model by RE and return model or None
+import re
+
+def validateModelByRE(model=None):
+    if not model or not model.strip():
+        print("ERROR:  Model is required.")
+        return None
+
+    model = model.strip().upper()
+
+    if model == "OTHER":
+        print("INFO:  'Other' model selected.")
+        return model
+
+
+    # RE definitions:
+    # ###############
+    
+    android_patterns = [
+        r"^S\d+$",          # S22, S23, etc.
+        r"^A\d+$",          # A13, A54, etc.
+        r"^FOLD\d+$",       # FOLD7, FOLD5
+        r"^FLIP\d+$"        # FLIP7, FLIP6
+    ]
+
+    ios_patterns = [
+        r"^IPHONE \d+$",    # iPhone 14, iPhone 15
+        r"^IPHONE SE$"      # iPhone SE
+    ]
+
+    # android validation
+    for pattern in android_patterns:
+        if re.fullmatch(pattern, model):
+            return model
+
+    # iOS validation
+    for pattern in ios_patterns:
+        if re.fullmatch(pattern, model):
+            return model
 
     print("ERROR:  Model is not valid (neither Android nor iOS).")
     return None
