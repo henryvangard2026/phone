@@ -19,7 +19,8 @@ from sqlalchemy.inspection import inspect
 # GLOBAL Variables:
 
 
-# by default, this is True for CLI but from PyQT6 GUI, it MUST be set to False before calling any CLI functions
+# by default, this is True for CLI 
+# but from PyQT6 GUI, it MUST be set to False before calling any CLI functions to avoid the "Press Enter to continue ..." statements
 CLI = True  
 
 
