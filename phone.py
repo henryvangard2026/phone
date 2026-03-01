@@ -480,7 +480,7 @@ def deletePhone(phoneID=None):
             input("Press Enter to continue ...")
             return False
         
-    # not called from CLI mode but GUI mode        m
+    # not called from CLI mode but GUI mode
     else:
         from PyQt6.QtWidgets import QMessageBox
         
