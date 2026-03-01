@@ -13,7 +13,12 @@ howtorun = r"""
 #
 # HOWTO:
 # 
-# uvicorn fastapiphone:app --reload
+# Phone
+#      \fastapiphone
+#
+# on Phone directory, run:
+#
+# Phone>uvicorn fastapiapp.fastapiphone:app --reload
 #
 # INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 #

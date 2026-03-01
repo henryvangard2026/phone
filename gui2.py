@@ -4,10 +4,10 @@
 
 #
 # STATUS:  Completed!  1/17/26
-#
+#m
 
 # imports for main GUI
-from PyQt6.QtWidgets import (
+from PyQt6.QtWidgets import (m
     QApplication, QWidget, QPushButton, QVBoxLayout, QMessageBox,
     QDialog, QLabel, QLineEdit, QComboBox, QFormLayout, QHBoxLayout    
 )
@@ -425,6 +425,8 @@ class MainWindow(QWidget):
         # 4. Finalize
         self.setLayout(main_layout)
 
+        # 5. Displays all phones initially so the buttons for update a phone and delete a phone will work
+        self.show_view_all_phones()
 
     # show add a phone
     def show_add_phone(self):

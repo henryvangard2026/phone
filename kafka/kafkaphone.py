@@ -1,10 +1,16 @@
 #
+# kafkaphone:  an implementation of a workstation phone management system using messaging and microservices architecture with Kafka and Python.
+#
+
+#
 # Look for "NEXT:" to continue next time:
 #
 
 
 #
-# STATUS:  Completed!  1/17/26
+# STATUS:  2/2626
+#
+# Commencing
 #
 
 
@@ -14,6 +20,40 @@ from sqlalchemy import create_engine, Column, Integer, String, Enum, text
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 from sqlalchemy.inspection import inspect
+
+
+# Kafka
+
+import json
+from confluent_kafka import Producer
+
+# KAFKA SETUP
+kafka_conf = {'bootstrap.servers': "localhost:9092"}
+producer = Producer(kafka_conf)
+
+def delivery_report(err, msg):
+    """ Called once for each message produced to indicate delivery result. """
+    if err is not None:
+        print(f"ERROR: Kafka delivery failed: {err}")
+
+def send_kafka_event(action, phone):
+    """ Helper to broadcast the phone data as JSON """
+    payload = {
+        "action": action,
+        "id": phone.id,
+        "brand": phone.brand,
+        "model": phone.model,
+        "status": str(phone.status),
+        "workstation": phone.workstation,
+        "timestamp": time.time()
+    }
+    producer.produce(
+        'phone_events', 
+        key=str(phone.id), 
+        value=json.dumps(payload),
+        callback=delivery_report
+    )
+    producer.flush() # Force it to send immediately for the dashboard
 
 
 # GLOBAL Variables:
@@ -480,7 +520,7 @@ def deletePhone(phoneID=None):
             input("Press Enter to continue ...")
             return False
         
-    # not called from CLI mode but GUI mode        m
+    # not called from CLI mode but GUI mode        
     else:
         from PyQt6.QtWidgets import QMessageBox
         

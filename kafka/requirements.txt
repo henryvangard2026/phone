@@ -1,0 +1,2 @@
+kafka-python
+SQLAlchemy>=2.0
