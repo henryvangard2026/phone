@@ -4,7 +4,11 @@
 
 
 #
-# STATUS:  Completed!  1/17/26
+# STATUS:   Completed!  1/17/26
+#
+#
+# STATUS:   RabbitMQ incomplete 
+# DATE:     3/14/26
 #
 
 
@@ -16,8 +20,24 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy.inspection import inspect
 
 
-# GLOBAL Variables:
+# ################################################
+# Message Queue:  RabbitMQ 
+# ################################################
 
+#
+# Start RabbitMQ docker:
+#
+# docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+#
+
+try:
+    from phoneproducer import publish_add, publish_update, publish_delete
+    MQ_ENABLED = True
+except ImportError:
+    MQ_ENABLED = False
+
+
+# GLOBAL Variables:
 
 # by default, this is True for CLI 
 # but from PyQT6 GUI, it MUST be set to False before calling any CLI functions to avoid the "Press Enter to continue ..." statements
@@ -35,7 +55,6 @@ session = Session()
 # enumerated type for status
 
 statusEnum = Enum("ACTIVE", "UNASSIGNED", "RETIRED", name="statusEnum")
-
 
 # class Phone defines the structure of the "phone" table in the database
 
@@ -442,6 +461,14 @@ def addPhone(phone=None):
         # add the phone to the database regardless if it was passed in or created through the menu        
         session.add(phone)
         session.commit()
+
+        # ################################################
+        # Message Queue:  RabbitMQ 
+        # ################################################
+
+        if MQ_ENABLED:
+            publish_add(phone)
+        
         print(f"INFO:  Phone {phone.brand} {phone.model} added successfully!")
     except Exception as e:
         session.rollback()
@@ -470,8 +497,31 @@ def deletePhone(phoneID=None):
         phoneID = int(phoneID)
         phone = session.query(Phone).filter_by(id=phoneID).first()
         if phone:
+
+            # RabbitMQ snapshot to publish it to the queue before it is deleted from the DB
+
+            snapshot = {
+                "id":               phone.id,  # id is now included and no longer passed to the published functions
+                "brand":            phone.brand,
+                "model":            phone.model,
+                "os":               phone.os,
+                "os_version":       str(phone.os_version),
+                "serial_number":    phone.serial_number,
+                "imei":             phone.imei,
+                "status":           phone.status,
+                "workstation":      phone.workstation,
+            }
+
             session.delete(phone)
             session.commit()
+
+            # ################################################
+            # Message Queue:  RabbitMQ 
+            # ################################################
+        
+            if MQ_ENABLED:
+                publish_delete(snapshot)  # the snapshot captured phone.id
+
             print(f"INFO: Phone with ID {phoneID} deleted successfully!")      
             input("Press Enter to continue ...")
             return True
@@ -494,6 +544,14 @@ def deletePhone(phoneID=None):
         if phone:
             session.delete(phone)
             session.commit()     
+                        
+            # ################################################
+            # Message Queue:  RabbitMQ 
+            # ################################################
+        
+            if MQ_ENABLED:
+                publish_delete(phone)
+
             return True
         
         return False
@@ -534,6 +592,19 @@ def updatePhone(phoneID=None):
         # search for the phoneID and return the phone
         phone = session.query(Phone).filter_by(id=phoneID).first()
     
+        # create a snapshot of the original values of phone so that only updated fields are published
+        original = {
+            "id":               phone.id,        
+            "brand":            phone.brand,
+            "model":            phone.model,
+            "os":               phone.os,
+            "os_version":       str(phone.os_version),
+            "serial_number":    phone.serial_number,
+            "imei":             phone.imei,
+            "status":           phone.status,
+            "workstation":      phone.workstation,
+        }
+
         if not phone:
             print(f"ERROR: Phone ID {phoneID} not found.")
             input("Press Enter to continue ...")
@@ -705,11 +776,25 @@ def updatePhone(phoneID=None):
             print(f"ERROR: Invalid workstation {val}.")
             input("Press Enter to continue ...")
 
-    # save (commit) then exit
+    # save (commit) then exit, publish too 3/14/26
     def saveExit():
         if commit:
+            changed_fields = {"id": phone.id}  # this implicitly created changed_fields as a dict
+
+            for k in original:
+                if str(getattr(phone, k)) != str(original[k]):
+                    changed_fields[k] = getattr(phone, k)
+
             # REF 1:  commit because one or more phone details has been updated by the user
             session.commit()
+
+            # ################################################
+            # Message Queue:  RabbitMQ 
+            # ################################################
+        
+            if MQ_ENABLED:
+                publish_update(changed_fields)
+            
             print(f"INFO: Phone ID {phone.id} was updated successfully!  Exiting ...")
             input("Press Enter to continue ...")
 

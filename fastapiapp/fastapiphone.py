@@ -22,9 +22,22 @@ howtorun = r"""
 #
 # INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 #
-
-Use curl to test endpoints.  Do not have to use Postman or Swagger/docs!
-
+# But starts with:
+# http://127.0.0.1:8000/docs
+# 
+# and provide it with the username and password:
+#
+# username:  MighteeXXX
+# password:  pXXX$$
+#
+# and get the token.
+#
+# click on "Authorize" button on the upper right corner of the page, and paste the token.
+#
+# then you can test the endpoints.
+#
+# Use curl to test endpoints after that.  
+#
 
 # get all phones
 curl http://127.0.0.1:8000/phones
