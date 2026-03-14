@@ -9,7 +9,10 @@ Message    : JSON  { "event": "ADD|UPDATE|DELETE", "timestamp": "...", "phone_id
 
 Requires:
     pip install pika
-    Docker:  docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+
+    run RabbitMQ in Docker in a seperate terminal BEFORE (or alongside) phone.py:
+    
+    docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 """
 
 import pika
