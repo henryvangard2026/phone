@@ -100,7 +100,7 @@ def publish_add(phone):
     )
 
 
-def publish_update(phone, changed_fields: dict):
+def publish_update(changed_fields: dict):
     """
     Call this after a phone is successfully updated ... in phone.py's updatePhone().
 

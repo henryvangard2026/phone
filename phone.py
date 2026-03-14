@@ -484,6 +484,7 @@ def deletePhone(phoneID=None):
     Return:  True for successful deletion, False otherwise
     """
     
+    # the CLI version
     if CLI:
         clearScreen()
     
@@ -530,7 +531,7 @@ def deletePhone(phoneID=None):
             input("Press Enter to continue ...")
             return False
         
-    # not called from CLI mode but GUI mode
+    # the GUI version 
     else:
         from PyQt6.QtWidgets import QMessageBox
         
@@ -541,7 +542,22 @@ def deletePhone(phoneID=None):
         # phoneID is an int
         phoneID = int(phoneID)        
         phone = session.query(Phone).filter_by(id=phoneID).first()      
+        
         if phone:
+
+            # RabbitMQ snapshot to publish it to the queue before it is deleted from the DB
+            snapshot = {
+                "id":               phone.id,  # id is now included and no longer passed to the published functions
+                "brand":            phone.brand,
+                "model":            phone.model,
+                "os":               phone.os,
+                "os_version":       str(phone.os_version),
+                "serial_number":    phone.serial_number,
+                "imei":             phone.imei,
+                "status":           phone.status,
+                "workstation":      phone.workstation,
+            }
+
             session.delete(phone)
             session.commit()     
                         
@@ -550,7 +566,7 @@ def deletePhone(phoneID=None):
             # ################################################
         
             if MQ_ENABLED:
-                publish_delete(phone)
+                publish_delete(snapshot)
 
             return True
         
@@ -591,19 +607,6 @@ def updatePhone(phoneID=None):
     
         # search for the phoneID and return the phone
         phone = session.query(Phone).filter_by(id=phoneID).first()
-    
-        # create a snapshot of the original values of phone so that only updated fields are published
-        original = {
-            "id":               phone.id,        
-            "brand":            phone.brand,
-            "model":            phone.model,
-            "os":               phone.os,
-            "os_version":       str(phone.os_version),
-            "serial_number":    phone.serial_number,
-            "imei":             phone.imei,
-            "status":           phone.status,
-            "workstation":      phone.workstation,
-        }
 
         if not phone:
             print(f"ERROR: Phone ID {phoneID} not found.")
@@ -620,7 +623,19 @@ def updatePhone(phoneID=None):
     # search for the phoneID and return the phone
     phone = session.query(Phone).filter_by(id=phoneID).first()        
 
-
+    # create a snapshot of the original values of phone so that only updated fields are published
+    original = {
+        "id":               phone.id,        
+        "brand":            phone.brand,
+        "model":            phone.model,
+        "os":               phone.os,
+        "os_version":       str(phone.os_version),
+        "serial_number":    phone.serial_number,
+        "imei":             phone.imei,
+        "status":           phone.status,
+        "workstation":      phone.workstation,
+    }
+    
     # update functions, one per detail
     # ############################################################################# #
 

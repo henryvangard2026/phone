@@ -23,10 +23,15 @@ from PyQt6.QtGui import QFont
 
 from PyQt6.QtCore import Qt
 
-# import existing functions from phone.py
+# import necessary functions from phone.py
 from phone import addPhone, updatePhone, deletePhone, viewPhone, viewPhones
 import phone
 
+# RabbitMQ 
+from phone import MQ_ENABLED
+
+# import publishing functions from phoneproducer.py
+from phoneproducer import publish_add, publish_update, publish_delete
 
 # ################################################
 # sub GUIs
@@ -188,7 +193,7 @@ class AddPhoneDialog(QDialog):
         
         # create the phone
         try:
-            phone = Phone(
+            newPhone = Phone(
                 brand=brand,
                 model=model,
                 os=os_name,
@@ -199,8 +204,12 @@ class AddPhoneDialog(QDialog):
                 workstation=workstation
             )
             
-            session.add(phone)
-            session.commit()
+            # session.add(newPhone)  # before RabbitMQ because we can now use phone.addPhone() to publish the event
+            # session.commit()       # 3/14/26
+
+            phone.CLI = False
+            addPhone(newPhone)  # this handles the DB commit and the RabbitMQ publish
+            phone.CLI = True
             
             QMessageBox.information(self, "Success", f"Phone {brand} {model} added successfully!")
             self.accept()  # close dialog with success
@@ -235,8 +244,8 @@ class UpdatePhoneDialog(QDialog):
 
         # OS
         self.os_combo = QComboBox()
-        self.os_combo.addItems(["Android", "iOS"])
-        self.os_combo.setCurrentText(self.phone.os.capitalize())
+        self.os_combo.addItems(["Android", "IOS"])
+        self.os_combo.setCurrentText(self.phone.os)  # don't capitalize
         layout.addRow("OS:", self.os_combo)
 
         # OS Version
@@ -278,11 +287,24 @@ class UpdatePhoneDialog(QDialog):
         self.setLayout(layout)
 
     def save_updates(self):
+
         from phone import (
             validateBrand, validateModel, validateOSName, validateOSVersion,
             validateSerialNumber, validateIMEI, validateStatus,
             validateWorkstation, session
         )
+
+        # saving the original phone details before the update for comparison and event publishing
+        original = {
+            "brand":         self.phone.brand,
+            "model":         self.phone.model,
+            "os":            self.phone.os,
+            "os_version":    str(self.phone.os_version),
+            "serial_number": self.phone.serial_number,
+            "imei":          self.phone.imei,
+            "status":        self.phone.status,
+            "workstation":   self.phone.workstation,
+        }
 
         # Brand
         brand = validateBrand(self.brand_combo.currentText()[0])
@@ -358,6 +380,21 @@ class UpdatePhoneDialog(QDialog):
 
         try:
             session.commit()
+        
+            # RabbitMQ  3/14/26
+            if MQ_ENABLED:
+                changed_fields = {"id": self.phone.id}
+                
+                # build changed_fields by comparing original vs current
+                for k in original:
+                    if str(getattr(self.phone, k)) != str(original[k]):
+                        changed_fields[k] = getattr(self.phone, k)
+
+            try:
+                publish_update(changed_fields)
+            except Exception as e:
+                print(f"ERROR: publish_update failed: {e}")
+
             QMessageBox.information(self, "Success", "Phone updated successfully")
             self.accept()
         except Exception as e:
@@ -532,8 +569,8 @@ class MainWindow(QWidget):
         # 3. create the Table
         self.table = QTableWidget()
         self.table.setRowCount(len(phones))
-        self.table.setColumnCount(8)
-        self.table.setHorizontalHeaderLabels(["ID", "Brand", "Model", "OS", "Version", "Serial", "IMEI", "Status"])
+        self.table.setColumnCount(9)
+        self.table.setHorizontalHeaderLabels(["ID", "Brand", "Model", "OS", "Version", "Serial", "IMEI", "Status", "Workstation"])
     
         # 4. populate the Table
         for row, ph in enumerate(phones): 
@@ -545,7 +582,8 @@ class MainWindow(QWidget):
             self.table.setItem(row, 5, QTableWidgetItem(str(ph.serial_number)))
             self.table.setItem(row, 6, QTableWidgetItem(str(ph.imei)))
             self.table.setItem(row, 7, QTableWidgetItem(str(ph.status)))
-    
+            self.table.setItem(row, 8, QTableWidgetItem(str(ph.workstation)))
+
         # make the table look nice
         self.table.resizeColumnsToContents()
         self.table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers) # make it read-only
