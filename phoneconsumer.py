@@ -25,9 +25,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
+# RabbitMQ setups
+
 RABBITMQ_HOST = "localhost"
 RABBITMQ_PORT = 5672
-QUEUE_NAME    = "phoneEvents"
+QUEUE_NAME    = "phone_events"
 AUDIT_LOG     = "audit.log"
 
 
@@ -46,18 +48,18 @@ log = logging.getLogger(__name__)
 
 
 _EVENT_ICONS = {
-    "ADD":    "✚",
-    "UPDATE": "✎",
-    "DELETE": "✖",
+    "ADD":    "[A]",
+    "UPDATE": "[U]",
+    "DELETE": "[D]",
 }
  
 def _format_event(msg: dict) -> str:
     """Return a human-readable single-line summary of the event."""
-    icon      = _EVENT_ICONS.get(msg.get("event", ""), "?")
-    event     = msg.get("event", "UNKNOWN")
-    phone_id  = msg.get("phone_id", "?")
-    ts        = msg.get("timestamp", "")
+    icon      = _EVENT_ICONS.get(msg.get("event", ""), "NO ICON")
+    event     = msg.get("event", "NO EVENT")
+    ts        = msg.get("timestamp", "NO TIMESTAMP")
     details   = msg.get("details", {})
+    phone_id  = details.get("id", "NO ID")
 
     # Build a compact details string
     detail_str = "  |  ".join(f"{k}={v}" for k, v in details.items())

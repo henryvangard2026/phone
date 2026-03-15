@@ -1,0 +1,59 @@
+2026-03-15 09:17:24  INFO      [CONSUMER] Connecting to RabbitMQ at localhost:5672 ...
+2026-03-15 09:17:24  INFO      Pika version 1.3.2 connecting to ('::1', 5672, 0, 0)
+2026-03-15 09:17:24  INFO      Socket connected: <socket.socket fd=1164, family=23, type=1, proto=6, laddr=('::1', 51275, 0, 0), raddr=('::1', 5672, 0, 0)>
+2026-03-15 09:17:24  INFO      Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x00000265DA77DE80>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x00000265DA77DE80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>).
+2026-03-15 09:17:25  INFO      AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x00000265DA77DE80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2026-03-15 09:17:25  INFO      AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x00000265DA77DE80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2026-03-15 09:17:25  INFO      Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x00000265DA77DE80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2026-03-15 09:17:25  INFO      Created channel=1
+2026-03-15 09:17:25  INFO      [CONSUMER] Listening on queue 'phone_events' — press Ctrl+C to stop.
+2026-03-15 09:20:00  INFO      [CONSUMER] Shutting down ...
+2026-03-15 09:20:00  INFO      Closing connection (200): Normal shutdown
+2026-03-15 09:20:00  INFO      Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x00000265DA77DE80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>
+2026-03-15 09:20:00  INFO      Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x00000265DA77DE80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>
+2026-03-15 09:20:00  INFO      Closing connection (200): 'Normal shutdown'
+2026-03-15 09:20:00  INFO      Aborting transport connection: state=1; <socket.socket fd=1164, family=23, type=1, proto=6, laddr=('::1', 51275, 0, 0), raddr=('::1', 5672, 0, 0)>
+2026-03-15 09:20:00  INFO      _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=1164, family=23, type=1, proto=6, laddr=('::1', 51275, 0, 0), raddr=('::1', 5672, 0, 0)>
+2026-03-15 09:20:00  INFO      Deactivating transport: state=1; <socket.socket fd=1164, family=23, type=1, proto=6, laddr=('::1', 51275, 0, 0), raddr=('::1', 5672, 0, 0)>
+2026-03-15 09:20:00  INFO      AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2026-03-15 09:20:00  INFO      Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2026-03-15 09:20:00  INFO      Closing transport socket and unlinking: state=3; <socket.socket fd=1164, family=23, type=1, proto=6, laddr=('::1', 51275, 0, 0), raddr=('::1', 5672, 0, 0)>
+2026-03-15 09:20:00  INFO      User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2026-03-15 09:20:05  INFO      [CONSUMER] Connecting to RabbitMQ at localhost:5672 ...
+2026-03-15 09:20:05  INFO      Pika version 1.3.2 connecting to ('::1', 5672, 0, 0)
+2026-03-15 09:20:05  INFO      Socket connected: <socket.socket fd=1188, family=23, type=1, proto=6, laddr=('::1', 59004, 0, 0), raddr=('::1', 5672, 0, 0)>
+2026-03-15 09:20:05  INFO      Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001DE870EDE80>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001DE870EDE80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>).
+2026-03-15 09:20:05  INFO      AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001DE870EDE80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2026-03-15 09:20:05  INFO      AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001DE870EDE80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2026-03-15 09:20:05  INFO      Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001DE870EDE80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2026-03-15 09:20:05  INFO      Created channel=1
+2026-03-15 09:20:05  INFO      [CONSUMER] Listening on queue 'phone_events' — press Ctrl+C to stop.
+2026-03-15 09:25:15  INFO      [D] [DELETE]  phone_id=?  ts=2026-03-15T14:25:15.026794+00:00  id=1000  |  brand=SAMSUNG  |  model=S22  |  os=ANDROID  |  os_version=13  |  serial_number=XX112233YY-1014  |  imei=998877665544332211-1014  |  status=ACTIVE  |  workstation=WS1014
+2026-03-15 09:25:29  INFO      [U] [UPDATE]  phone_id=?  ts=2026-03-15T14:25:29.657431+00:00  id=1009  |  os_version=15
+2026-03-15 09:33:54  INFO      [CONSUMER] Shutting down ...
+2026-03-15 09:33:54  INFO      Closing connection (200): Normal shutdown
+2026-03-15 09:33:54  INFO      Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001DE870EDE80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>
+2026-03-15 09:33:54  INFO      Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x000001DE870EDE80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>
+2026-03-15 09:33:54  INFO      Closing connection (200): 'Normal shutdown'
+2026-03-15 09:33:54  INFO      Aborting transport connection: state=1; <socket.socket fd=1188, family=23, type=1, proto=6, laddr=('::1', 59004, 0, 0), raddr=('::1', 5672, 0, 0)>
+2026-03-15 09:33:54  INFO      _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=1188, family=23, type=1, proto=6, laddr=('::1', 59004, 0, 0), raddr=('::1', 5672, 0, 0)>
+2026-03-15 09:33:54  INFO      Deactivating transport: state=1; <socket.socket fd=1188, family=23, type=1, proto=6, laddr=('::1', 59004, 0, 0), raddr=('::1', 5672, 0, 0)>
+2026-03-15 09:33:54  INFO      AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2026-03-15 09:33:54  INFO      Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2026-03-15 09:33:54  INFO      Closing transport socket and unlinking: state=3; <socket.socket fd=1188, family=23, type=1, proto=6, laddr=('::1', 59004, 0, 0), raddr=('::1', 5672, 0, 0)>
+2026-03-15 09:33:54  INFO      User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2026-03-15 09:34:05  INFO      [CONSUMER] Connecting to RabbitMQ at localhost:5672 ...
+2026-03-15 09:34:05  INFO      Pika version 1.3.2 connecting to ('::1', 5672, 0, 0)
+2026-03-15 09:34:05  INFO      Socket connected: <socket.socket fd=784, family=23, type=1, proto=6, laddr=('::1', 64701, 0, 0), raddr=('::1', 5672, 0, 0)>
+2026-03-15 09:34:05  INFO      Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000025A6A92DE80>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000025A6A92DE80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>).
+2026-03-15 09:34:05  INFO      AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000025A6A92DE80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2026-03-15 09:34:05  INFO      AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000025A6A92DE80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2026-03-15 09:34:05  INFO      Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x0000025A6A92DE80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2026-03-15 09:34:05  INFO      Created channel=1
+2026-03-15 09:34:05  INFO      [CONSUMER] Listening on queue 'phone_events' — press Ctrl+C to stop.
+2026-03-15 09:34:15  INFO      [D] [DELETE]  phone_id=?  ts=2026-03-15T14:34:14.993801+00:00  id=1008  |  brand=APPLE  |  model=IPHONE 15 PRO  |  os=IOS  |  os_version=17  |  serial_number=AA556677BB-1022  |  imei=112233445566778899-1022  |  status=ACTIVE  |  workstation=WS1022
+2026-03-15 09:34:27  INFO      [U] [UPDATE]  phone_id=?  ts=2026-03-15T14:34:27.697982+00:00  id=1003  |  workstation=WS1027
+2026-03-15 09:35:37  INFO      [A] [ADD]  phone_id=?  ts=2026-03-15T14:35:37.360595+00:00  id=1010  |  brand=SAMSUNG  |  model=S26  |  os=ANDROID  |  os_version=16  |  serial_number=AAA111222333  |  imei=IMEI-112233445566  |  status=UNASSIGNED  |  workstation=UNASSIGNED
+2026-03-15 09:36:09  INFO      [D] [DELETE]  phone_id=?  ts=2026-03-15T14:36:09.156506+00:00  id=1003  |  brand=SAMSUNG  |  model=FOLD5  |  os=ANDROID  |  os_version=18  |  serial_number=XX112233YY-1017  |  imei=998877665544332211-1017  |  status=ACTIVE  |  workstation=WS1027
+2026-03-15 09:44:06  INFO      [A] [ADD]  phone_id=?  ts=2026-03-15T14:44:06.138016+00:00  id=1011  |  brand=APPLE  |  model=IPHONE 13  |  os=IOS  |  os_version=17  |  serial_number=XXXXXXXXXXXXXXXXX  |  imei=77777777777777777  |  status=ACTIVE  |  workstation=WS112233
+2026-03-15 09:45:33  INFO      [A] [ADD]  phone_id=?  ts=2026-03-15T14:45:33.507801+00:00  id=1012  |  brand=OTHER  |  model=A123  |  os=ANDROID  |  os_version=13  |  serial_number=1111111111111111111  |  imei=111111111111111111111  |  status=RETIRED  |  workstation=UNASSIGNED

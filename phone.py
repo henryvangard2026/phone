@@ -474,12 +474,15 @@ def addPhone(phone=None):
         if MQ_ENABLED:
             publish_add(phone)
         
-        print(f"INFO:  Phone {phone.brand} {phone.model} added successfully!")
+        if CLI:
+            print(f"INFO:  Phone {phone.brand} {phone.model} added successfully!")
+            
     except Exception as e:
         session.rollback()
         print(f"ERROR:  Couldn't add the phone:  {e}")
     
-    input("Press Enter to continue ...")
+    if CLI:
+        input("Press Enter to continue ...")
 
 
 # delete a phone by its ID  

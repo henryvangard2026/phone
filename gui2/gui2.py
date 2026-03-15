@@ -26,6 +26,16 @@ from PyQt6.QtWidgets import (
 # Note:  cli is on the root directory
 #
 
+#
+# HOWTO:
+# 
+# cd Phone
+#
+# On phone directory:
+#
+# C:\Users\Henry\OneDrive\Desktop\Python\Phone>python gui2\gui2.py
+#
+
 
 import sys
 import os
