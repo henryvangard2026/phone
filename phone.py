@@ -29,9 +29,14 @@ from sqlalchemy.inspection import inspect
 #
 # docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 #
+# or 
+# 
+# run Docker Desktop and start the rabbitmq container from there, 
+# then can access RabbitMQ management UI at http://localhost:15672/ with username:  guest and password:  guest
 
+# RabbitMQ is a folder of its own 
 try:
-    from phoneproducer import publish_add, publish_update, publish_delete
+    from RabbitMQ.phoneproducer import publish_add, publish_update, publish_delete
     MQ_ENABLED = True
 except ImportError:
     MQ_ENABLED = False
@@ -40,7 +45,7 @@ except ImportError:
 # GLOBAL Variables:
 
 # by default, this is True for CLI 
-# but from PyQT6 GUI, it MUST be set to False before calling any CLI functions to avoid the "Press Enter to continue ..." statements
+# if running PyQT6 GUI, it MUST be set to False before calling any CLI functions to avoid the "Press Enter to continue ..." statements
 CLI = True  
 
 

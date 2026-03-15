@@ -430,9 +430,11 @@ class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Workstation Phone Management GUI")
+
         # widened window to fit horizontal buttons and table
-        self.setGeometry(300, 300, 800, 600)
-    
+        # make sure this and view all phones are the same, VIEW_ALL_PHONES below
+        self.setGeometry(300, 300, 800, 800)
+
         # 1. The Master Vertical Layout
         main_layout = QVBoxLayout()
     
@@ -612,7 +614,8 @@ class MainWindow(QWidget):
         self.content_layout.addWidget(self.table)
     
         # adjust main window size to fit the table
-        self.resize(800, 600)
+        # VIEW_ALL_PHONES:
+        self.resize(820, 600)
     
         
 # main
