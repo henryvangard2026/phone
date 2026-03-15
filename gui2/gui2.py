@@ -3,7 +3,8 @@
 #
 
 #
-# STATUS:  Completed!  1/17/26
+# STATUS:  Pending
+# DATE:  3/14/26
 #
 
 # imports for main GUI
@@ -11,7 +12,27 @@ from PyQt6.QtWidgets import (
     QApplication, QWidget, QPushButton, QVBoxLayout, QMessageBox,
     QDialog, QLabel, QLineEdit, QComboBox, QFormLayout, QHBoxLayout    
 )
+
+
+#
+# For my local file structure:  C:\Users\Henry\OneDrive\Desktop\Python\Phone
+#
+# Phone\
+#        gui2
+#        RabbitMQ
+#        flask
+#        fastapi
+#
+# Note:  cli is on the root directory
+#
+
+
 import sys
+import os
+
+# import phone.py from the parent directory (since this gui2.py is in a subdirectory)
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 
 # imports for view all phones GUI
 from PyQt6.QtWidgets import (
@@ -24,14 +45,14 @@ from PyQt6.QtGui import QFont
 from PyQt6.QtCore import Qt
 
 # import necessary functions from phone.py
-from phone import addPhone, updatePhone, deletePhone, viewPhone, viewPhones
+from phone import addPhone, updatePhone, deletePhone, viewPhone, viewPhones 
 import phone
 
 # RabbitMQ 
 from phone import MQ_ENABLED
 
 # import publishing functions from phoneproducer.py
-from phoneproducer import publish_add, publish_update, publish_delete
+from RabbitMQ.phoneproducer import publish_add, publish_update, publish_delete
 
 # ################################################
 # sub GUIs
