@@ -1,4 +1,2 @@
-This phone Python app keeps track of the phones that are used on a lab workstation at my last job.  It is implemented in Python using FASTAPI and ORM.  The GUI is complete.  FASTAPI is complete.  Flask is complete.  JWT is complete.  Awaiting user.db only.  1/25/26
-
-
-
+This application was created to track the iOS and Android phones used across more than 50 lab workstations. It is implemented in Python using FastAPI and an ORM. The GUI, built with PyQt6, is complete. FastAPI was implemented to provide network access and is also complete. The web UI, developed using Flask, is finished as well. JWT is used for authentication. RabbitMQ was implemented to test a producer–consumer architecture; however, it has not yet been fully utilized.
+Updated: 1/25/26
